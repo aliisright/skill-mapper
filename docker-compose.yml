@@ -1,0 +1,29 @@
+version: '3'
+services:
+    app:
+        build: .
+        volumes:
+            - ./app/:/app
+        environment:
+            - APP_NAME=Laravel
+            - APP_ENV=local
+            - APP_KEY=base64:FP27OBhQm3EFpwG3CD1cEZW4hugd5efgm/Den0/xtIg=
+            - DB_CONNECTION=pgsql
+            - DB_DATABASE=skillmapper
+            - DB_USERNAME=user
+            - DB_PASSWORD=user
+            - DB_HOST=127.0.0.1
+            - DB_PORT=5432
+        ports:
+            - "8080:80"
+        depends_on:
+            - database
+            
+    database:
+        image: postgres:10-alpine
+        environment:
+            - POSTGRES_DB=skillmapper
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=user
+        ports:
+            - 5432:5432
